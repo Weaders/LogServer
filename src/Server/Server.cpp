@@ -51,11 +51,13 @@ namespace Server {
                                  response = server->getHomePage();
                              }
 
+                             auto httpMethod = Server::convertEvCmd(evhttp_request_get_command(req));
+
                              if (response == nullptr) {
 
                                  for (auto r : server->routes) {
 
-                                     if (r.check(uriPath)) {
+                                     if (r.check(uriPath, httpMethod)) {
 
                                          auto params = r.exec(evhttp_uri_get_path(uri));
                                          auto request = Request(req, params);
@@ -94,10 +96,11 @@ namespace Server {
         event_base_dispatch(base);
     }
 
-    void Server::route(const std::string &path, std::shared_ptr<Action> action) {
+    void Server::route(const std::string &path, std::shared_ptr<Action> action, const HTTP_METHOD& method) {
 
-        Route r(path, std::move(action));
+        Route r(path, std::move(action), method);
         this->routes.push_back(r);
+
     }
 
     void Server::staticRoute(const std::string &path, const std::string &folder) {
@@ -210,6 +213,33 @@ namespace Server {
         } else {
             return nullptr;
         }
+
+    }
+
+    HTTP_METHOD Server::convertEvCmd(const evhttp_cmd_type &cmd) {
+
+        switch (cmd) {
+            case EVHTTP_REQ_GET:
+                return HTTP_METHOD::GET;
+            case EVHTTP_REQ_POST:
+                return HTTP_METHOD::POST;
+            case EVHTTP_REQ_DELETE:
+                return HTTP_METHOD::DELETE;
+            case EVHTTP_REQ_PUT:
+                return HTTP_METHOD::PUT;
+            case EVHTTP_REQ_OPTIONS:
+                return HTTP_METHOD::OPTIONS;
+            case EVHTTP_REQ_HEAD:
+                return HTTP_METHOD::HEAD;
+            case EVHTTP_REQ_CONNECT:
+                return HTTP_METHOD::CONNECT;
+            case EVHTTP_REQ_PATCH:
+                return HTTP_METHOD::PATCH;
+            case EVHTTP_REQ_TRACE:
+                return HTTP_METHOD::TRACE;
+        }
+
+        return HTTP_METHOD::GET;
 
     }
 

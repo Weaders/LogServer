@@ -57,15 +57,8 @@ namespace Server {
     HTTP_METHOD Request::getMethod() const {
 
         auto cmd = evhttp_request_get_command(this->_req);
+        return Server::convertEvCmd(cmd);
 
-        switch (cmd) {
-            case EVHTTP_REQ_GET:
-                return HTTP_METHOD::GET;
-            case EVHTTP_REQ_POST:
-                return HTTP_METHOD::POST;
-        }
-
-        return HTTP_METHOD::GET;
     }
 
     const char *Request::getParam(const std::string &param) const {

@@ -9,7 +9,13 @@ namespace Server {
     enum class HTTP_METHOD {
         GET,
         POST,
-        OPTIONS
+        OPTIONS,
+        PUT,
+        DELETE,
+        HEAD,
+        CONNECT,
+        PATCH,
+        TRACE
     };
 
 }

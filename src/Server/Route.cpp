@@ -4,7 +4,7 @@
 
 namespace Server {
 
-    Route::Route(const std::string &str, std::shared_ptr<Action> action) {
+    Route::Route(const std::string &str, std::shared_ptr<Action> action, const HTTP_METHOD &method): _method(method) {
 
         this->_sourceStr = str;
         this->action = std::move(action);
@@ -14,6 +14,10 @@ namespace Server {
     void Route::_setRegex() {
 
         std::string s = this->_sourceStr;
+
+        if (s.back() == '/') {
+            s = s.substr(0, s.size() - 1);
+        }
 
         auto strTemplate = Common::StrTemplate(this->_sourceStr);
 
@@ -39,8 +43,17 @@ namespace Server {
 
     }
 
-    bool Route::check(const std::string &path) {
+    bool Route::check(std::string path, const HTTP_METHOD& method) {
+
+        if (method != this->_method) {
+            return false;
+        }
+
+        if (path.back() == '/') {
+            path = path.substr(0, path.size() - 1);
+        }
+
         return std::regex_match(path, this->_regex);
     }
 
-} // namespace Server
+}

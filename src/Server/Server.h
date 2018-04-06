@@ -21,7 +21,7 @@ public:
     explicit Server();
     void start(uint16_t port);
 
-    void route(const std::string& path, std::shared_ptr<Action> action);
+    void route(const std::string& path, std::shared_ptr<Action> action, const HTTP_METHOD& = HTTP_METHOD::GET);
     void staticRoute(const std::string& path, const std::string& folder);
     void websocketRoute(const std::string&, WebSocketAction*);
 
@@ -37,6 +37,8 @@ public:
     void fileHomePage(const std::string&, bool returnOn404 = false);
 
     void sendResponse(evhttp_request*, std::shared_ptr<Response>);
+
+    static HTTP_METHOD convertEvCmd(const evhttp_cmd_type &);
 
 protected:
 

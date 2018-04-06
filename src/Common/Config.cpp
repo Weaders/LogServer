@@ -5,7 +5,7 @@ namespace Common {
     std::shared_ptr<Config> Config::getInstance() {
 
         if (Config::c == nullptr) {
-            Config::c = std::shared_ptr<Config>(new Config("./../config.json"));
+            Config::c = std::shared_ptr<Config>(new Config("./config.json"));
         }
 
         return Config::c;

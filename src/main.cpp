@@ -6,8 +6,9 @@
 #include <regex>
 
 #include "./Controllers/Memory/MemoryController.h"
+#include "./Controllers/LogsLevels/LogsLevelsController.h"
+#include "./Controllers/Logs/LogsController.h"
 #include "./Services/LogsReader.h"
-#include "Controllers/Logs/LogsController.h"
 
 #define SERVER_PORT 8080
 
@@ -17,10 +18,7 @@ int main(int argc, char **argv) {
 
     auto memController = Controllers::Memory::MemoryController();
     auto logsController = Controllers::Logs::LogsController(c->logsFolder, c->logExtension);
-
-    auto lf = Services::LogFile("/var/www/node/wikibot/logs/2018-03-30.parse-event.log");
-
-    auto msgs = lf.getMsgs();
+    auto logsLevelsController = Controllers::LogsLevels::LogsLevelsController();
 
     auto server = Server::Server();
     server.fileHomePage("./../assets/index.html", true);
@@ -34,6 +32,7 @@ int main(int argc, char **argv) {
     server.route("/v1/memory", memController.memoryDataAction());
     server.route("/v1/logs", logsController.getLogsFiles());
     server.route("/v1/logs/:file", logsController.getLogsMsgs());
+    server.route("/v1/logs-levels", logsLevelsController.getLogLevels());
 
     server.start(SERVER_PORT);
 

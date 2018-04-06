@@ -48,7 +48,9 @@ add_executable(http_event
         src/Common/StrTemplate.cpp
         src/Common/StrTemplate.h
         src/Controllers/Logs/LogsMsgsAction.cpp
-        src/Controllers/Logs/LogsMsgsAction.h)
+        src/Controllers/Logs/LogsMsgsAction.h src/Controllers/LogsLevels/LogsLevelsController.cpp src/Controllers/LogsLevels/LogsLevelsController.h src/Controllers/LogsLevels/GetLogsLevelsAction.cpp src/Controllers/LogsLevels/GetLogsLevelsAction.h)
+
+configure_file(config.json config.json COPYONLY)
 
 target_link_libraries(http_event
         boost_system

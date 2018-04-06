@@ -1,0 +1,24 @@
+html, body, .body, .body > .row {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+    background-color: #fafafa;
+}
+
+#app .sidebar {
+    background: #ffffff;
+    height: 100%;
+    padding: 0;
+    box-shadow: 5px 0 16px rgba(17, 17, 17, .06);
+}
+.sidebar .sidebar-links .sidebar-link {
+    border-radius: 0;
+    border-right: 0;
+}
+.sidebar .sidebar-links .sidebar-link.active {
+    background-color: #e9ecef;
+    border-color: rgba(0,0,0,.125);
+    color: #495057;
+}

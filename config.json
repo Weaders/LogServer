@@ -1,0 +1,27 @@
+{
+  "logsFolder": "/var/www/node/wikibot/logs",
+  "logExtension": ".log",
+  "logFileTemplate": ":time\\.:level\\.log",
+  "logLevels": [
+    {
+      "key": "warn",
+      "ext": ".warn",
+      "name": "Warning"
+    },
+    {
+      "key": "info",
+      "ext": ".info",
+      "name": "Info"
+    },
+    {
+      "key": "error",
+      "ext": ".error",
+      "name": "Error"
+    },
+    {
+      "key": "parse-event",
+      "ext": ".parse-event",
+      "name": "Parse event"
+    }
+  ]
+}

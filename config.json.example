@@ -1,5 +1,5 @@
 {
-  "logsFolder": "/var/www/node/wikibot/logs",
+  "logsFolder": "<!-logs-folder->",
   "logExtension": ".log",
   "logFileTemplate": ":time\\.:level\\.log",
   "logLevels": [

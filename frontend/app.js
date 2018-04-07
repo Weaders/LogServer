@@ -5,6 +5,8 @@ const fileServer = new staticServer.Server('./assets');
 const HOME_FILE = 'index.html';
 const HOME_ROUTES = ['/logs'];
 
+const PORT = process.env.PORT || 8080;
+
 require('http').createServer(function (req, res) {
 
   req.addListener('end', function () {
@@ -17,4 +19,6 @@ require('http').createServer(function (req, res) {
 
   }).resume();
 
-}).listen(8080);
+}).listen(PORT);
+
+console.log(`Server start at ${PORT}`);

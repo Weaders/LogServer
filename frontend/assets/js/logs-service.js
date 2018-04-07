@@ -1,41 +1,138 @@
-import { logsReq } from "./common";
+import {logsReq} from './common';
+import LogFile from './log-file'
+import LogFilesNotify from './log-files-notify';
+import ServiceListener from './service-listener';
 
-class LogsService {
+class LogsService extends ServiceListener {
 
-    constructor() {
+  constructor() {
 
-        this._getLogsFilesInit();
-        this._cbs = new Map();
+    super();
 
-        this.logFiles = [];
+    this._getLogsFilesInit();
+
+    /**
+     * Array of log files
+     * @type {LogFile[]}
+     */
+    this.logFiles = [];
+
+  }
+
+  /**
+   * Subscribe to service
+   * @param {string} key
+   * @param {Function} cb
+   * @param {{}} params
+   */
+  subscribe(key, cb, params = { getCurrent: false }) {
+
+    super.subscribe(key, cb,);
+
+    if (params.getCurrent) {
+      this._notifyLogFiles(key);
+    }
+
+  }
+
+  /**
+   * Update files, and check is need to notify subscribers
+   * @param {{fileName: string, level: object, time: string}[]|LogFile[]} files
+   * @returns {boolean} false on no need notify, true on notify
+   * @private
+   */
+  _updateFiles(files) {
+
+    let newFiles = files.filter((f) => {
+      return !this._isExistsFile(f);
+    });
+
+    console.log(newFiles);
+
+    if (newFiles.length === 0) {
+      return false;
+    }
+
+    files = files.map((f) => {
+      return new LogFile(f)
+    });
+
+    console.log(files);
+
+    this.logFiles = files;
+
+    return true;
+
+  }
+
+  /**
+   * Check is exists Log file
+   * @param {{fileName: string}|LogFile} newFile
+   * @private
+   */
+  _isExistsFile(newFile) {
+
+    for (let f of this.logFiles) {
+
+      if (f.fileName === newFile.fileName) {
+        return true;
+      }
 
     }
 
-    subscribe(key, cb) {
-        this._cbs.set(key, cb);
+    return false;
+
+  }
+
+  /**
+   * Notify subscribers for changed log files
+   * @param {string|null} key
+   * @private
+   */
+  _notifyLogFiles(key = null) {
+
+    let notify = new LogFilesNotify(this.logFiles);
+
+    if (!key) {
+
+      for (let cb of this._cbs.values()) {
+        cb(notify);
+      }
+
+    } else if (this._cbs.has(key)) {
+      this._cbs.get(key)(notify);
     }
 
-    unsubscrive(key) {
-        this._cbs.delete(key);
-    }
+  }
 
-    _notifyLogsFiles(files) {
+  /**
+   * Get logs files init
+   * @private
+   */
+  _getLogsFilesInit() {
+
+    // setInterval(() => {
+
+      logsReq('logs')
+        .then((res) => {
+          return res.json();
+        })
+        .then((files) => {
+          return this._updateFiles(files);
+        })
+        .then((isNotify) => {
+
+          if (isNotify) {
+            this._notifyLogFiles();
+          }
+
+        });
+
+    // }, 20000);
+
+  }
 
 
-    }
-
-    _getLogsFilesInit() {
-
-        setTimeout(() => {
-
-            logsReq('logs')
-                .then((files) => {
-                    console.log(files);
-                })
-
-        }, 2000)
-
-    }
 
 }
 

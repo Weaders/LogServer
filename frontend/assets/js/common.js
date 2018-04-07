@@ -1,6 +1,6 @@
-import { serverUrl } from './../config'
+import config from '../config'
 
-const SERVER_API_URL = serverUrl + '/v1';
+const SERVER_API_URL = config.serverUrl + '/v1';
 
 function logsReq(url, opts = {}) {
 

@@ -1,5 +1,10 @@
-const config = {
-  serverUrl: '172.104.157.26:8080'
-};
+class Config {
 
-export default config;
+  constructor() {
+    this.serverUrl = 'http://172.104.157.26:8079';
+  }
+
+}
+
+
+export default new Config();

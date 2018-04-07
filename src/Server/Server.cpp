@@ -11,6 +11,10 @@ namespace Server {
 
     Server::Server() {}
 
+    /**
+     * Start server
+     * @param port
+     */
     void Server::start(uint16_t port) {
 
         auto base = event_base_new();
@@ -47,13 +51,13 @@ namespace Server {
                              auto uriPath = evhttp_uri_get_path(uri);
                              std::shared_ptr<Response> response = nullptr;
 
-                             if (std::string(uriPath) == "/") {
+                             if (server->isReturnHome(uriPath)) {
                                  response = server->getHomePage();
                              }
 
-                             auto httpMethod = Server::convertEvCmd(evhttp_request_get_command(req));
-
                              if (response == nullptr) {
+
+                                 auto httpMethod = Server::convertEvCmd(evhttp_request_get_command(req));
 
                                  for (auto r : server->routes) {
 
@@ -77,13 +81,7 @@ namespace Server {
                                  if (server->staticRouteFileName(uriPath, fileName)) {
                                      response = server->getFileResponse(fileName);
                                  } else {
-
-                                     if (server->isReturnHomeOn404()) {
-                                         response = server->getHomePage();
-                                     } else {
-                                         response = server->get404Response();
-                                     }
-
+                                     response = server->get404Response();
                                  }
 
                              }
@@ -96,15 +94,25 @@ namespace Server {
         event_base_dispatch(base);
     }
 
-    void Server::route(const std::string &path, std::shared_ptr<Action> action, const HTTP_METHOD& method) {
+    /**
+     * Set route
+     * @param path can have params like. Ex: :test
+     * @param action
+     * @param method
+     */
+    void Server::route(const std::string &path, std::shared_ptr<Action> action, const HTTP_METHOD &method) {
 
         Route r(path, std::move(action), method);
         this->routes.push_back(r);
 
     }
 
+    /**
+     * Set virtual path for folder
+     * @param path
+     * @param folder
+     */
     void Server::staticRoute(const std::string &path, const std::string &folder) {
-
         this->staticRoutes.insert(std::make_pair(path, folder));
     }
 
@@ -112,10 +120,21 @@ namespace Server {
 
     }
 
+    /**
+     * Set content type for extension of file
+     * @param extension
+     * @param contentType
+     */
     void Server::addExtensionType(const std::string &extension, const std::string &contentType) {
         this->extensions.insert(std::make_pair(extension, contentType));
     }
 
+    /**
+     * Check is can return by path
+     * @param virtualPath
+     * @param filePath
+     * @return
+     */
     bool Server::staticRouteFileName(const std::string &virtualPath, std::string &filePath) {
 
         for (const auto &staticRoute : this->staticRoutes) {
@@ -144,6 +163,11 @@ namespace Server {
 
     }
 
+    /**
+     * Response for output content of file
+     * @param file path to file
+     * @return
+     */
     std::shared_ptr<Response> Server::getFileResponse(const std::string &file) {
 
         auto response = std::make_shared<Response>();
@@ -170,6 +194,10 @@ namespace Server {
 
     }
 
+    /**
+     * 404 Response
+     * @return
+     */
     std::shared_ptr<Response> Server::get404Response() {
 
         auto response = std::make_shared<Response>();
@@ -181,6 +209,19 @@ namespace Server {
 
     }
 
+    /**
+     * On what routes call home response
+     * @param routes
+     */
+    void Server::homeOn(const std::vector<std::string> &routes) {
+        this->homeRoutes = routes;
+    }
+
+    /**
+     * Send response on request
+     * @param req
+     * @param response
+     */
     void Server::sendResponse(evhttp_request *req, std::shared_ptr<Response> response) {
 
         auto buffer = evbuffer_new();
@@ -199,13 +240,18 @@ namespace Server {
 
     }
 
-    void Server::fileHomePage(const std::string &filePath, bool returnOn404) {
-
+    /**
+     * Set path to file home page
+     * @param filePath
+     */
+    void Server::fileHomePage(const std::string &filePath) {
         this->fileHomePagePath = filePath;
-        this->returnHomeOn404 = returnOn404;
-
     }
 
+    /**
+     * Response of home page
+     * @return
+     */
     std::shared_ptr<Response> Server::getHomePage() {
 
         if (!this->fileHomePagePath.empty()) {
@@ -216,6 +262,11 @@ namespace Server {
 
     }
 
+    /**
+     * Convert evhttp_cmd_type to HTTP_METHOD
+     * @param cmd
+     * @return HTTP_METHOD eq cmd
+     */
     HTTP_METHOD Server::convertEvCmd(const evhttp_cmd_type &cmd) {
 
         switch (cmd) {
@@ -243,8 +294,27 @@ namespace Server {
 
     }
 
-    bool Server::isReturnHomeOn404() {
-        return this->returnHomeOn404;
+    /**
+     * Is return home response
+     * @param path
+     * @return
+     */
+    bool Server::isReturnHome(const std::string &path) {
+
+        if (path == "/") {
+            return true;
+        }
+
+        for (const auto &route : this->homeRoutes) {
+
+            if (route == path) {
+                return true;
+            }
+
+        }
+
+        return false;
+
     }
 
 } // namespace Server

@@ -21,13 +21,15 @@ int main(int argc, char **argv) {
     auto logsLevelsController = Controllers::LogsLevels::LogsLevelsController();
 
     auto server = Server::Server();
-    server.fileHomePage("./../assets/index.html", true);
+    server.fileHomePage("./assets/index.html");
+
+    server.homeOn({"/logs"});
 
     server.addExtensionType("js", "application/javascript");
     server.addExtensionType("html", "text/html");
     server.addExtensionType("css", "text/css");
 
-    server.staticRoute("/assets/", "./../assets/");
+    server.staticRoute("/assets/", "./assets/");
 
     server.route("/v1/memory", memController.memoryDataAction());
     server.route("/v1/logs", logsController.getLogsFiles());

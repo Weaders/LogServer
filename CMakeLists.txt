@@ -29,8 +29,6 @@ add_executable(http_event
         src/json/json.hpp
         src/Controllers/Memory/MemoryInfoCurrent.cpp
         src/Controllers/Memory/MemoryInfoCurrent.h
-        src/Server/HomePageActionFile.cpp
-        src/Server/HomePageActionFile.h
         src/Services/MemoryInfoData.cpp
         src/Services/MemoryInfoData.h
         src/Services/LogsReader.cpp
@@ -48,9 +46,15 @@ add_executable(http_event
         src/Common/StrTemplate.cpp
         src/Common/StrTemplate.h
         src/Controllers/Logs/LogsMsgsAction.cpp
-        src/Controllers/Logs/LogsMsgsAction.h src/Controllers/LogsLevels/LogsLevelsController.cpp src/Controllers/LogsLevels/LogsLevelsController.h src/Controllers/LogsLevels/GetLogsLevelsAction.cpp src/Controllers/LogsLevels/GetLogsLevelsAction.h)
+        src/Controllers/Logs/LogsMsgsAction.h
+        src/Controllers/LogsLevels/LogsLevelsController.cpp
+        src/Controllers/LogsLevels/LogsLevelsController.h
+        src/Controllers/LogsLevels/GetLogsLevelsAction.cpp
+        src/Controllers/LogsLevels/GetLogsLevelsAction.h)
 
 configure_file(config.json config.json COPYONLY)
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 target_link_libraries(http_event
         boost_system

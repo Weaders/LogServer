@@ -12,6 +12,7 @@
 #include "WebSocketAction.h"
 #include <map>
 #include <string>
+#include "boost/filesystem.hpp"
 
 namespace Server {
 
@@ -32,13 +33,14 @@ public:
     std::shared_ptr<Response> get404Response();
     std::shared_ptr<Response> getHomePage();
 
-    bool isReturnHomeOn404();
-
-    void fileHomePage(const std::string&, bool returnOn404 = false);
+    void fileHomePage(const std::string&);
+    void homeOn(const std::vector<std::string>&);
 
     void sendResponse(evhttp_request*, std::shared_ptr<Response>);
 
     static HTTP_METHOD convertEvCmd(const evhttp_cmd_type &);
+
+    bool isReturnHome(const std::string &path);
 
 protected:
 
@@ -47,7 +49,7 @@ protected:
     std::map<std::string, std::string> staticRoutes;
 
     std::string fileHomePagePath;
-    bool returnHomeOn404 = false;
+    std::vector<std::string> homeRoutes;
 };
 
 } // namespace Server

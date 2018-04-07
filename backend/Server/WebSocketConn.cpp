@@ -6,7 +6,7 @@ namespace Server {
 
         auto headers = evhttp_request_get_input_headers(req);
 
-        this->_req = req; // Request
+        this->_req = req; // LogsReq
         this->_conn = evhttp_request_get_connection(req); // Connection
         this->_buff = evhttp_connection_get_bufferevent(this->_conn); // BufferEvent
 

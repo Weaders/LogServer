@@ -15,7 +15,7 @@ namespace Server {
      * Start server
      * @param port
      */
-    void Server::start(uint16_t port) {
+    void Server::start(unsigned port) {
 
         auto base = event_base_new();
 
@@ -227,6 +227,8 @@ namespace Server {
         auto buffer = evbuffer_new();
         auto b = response->body();
         auto reqHeaders = evhttp_request_get_output_headers(req);
+
+        response->header("Access-Control-Allow-Origin", "*");
 
         for (const auto &pair : response->headers) {
             evhttp_add_header(reqHeaders, pair.first.c_str(), pair.second.c_str());

@@ -26,6 +26,7 @@ namespace Common {
         this->logsFolder = parseJson.at("logsFolder").get<std::string>();
         this->logExtension = parseJson.at("logExtension").get<std::string>();
         this->logFileTemplate = parseJson.at("logFileTemplate").get<std::string>();
+        this->port = parseJson.at("port").get<unsigned>();
 
         for (auto &logLevel: parseJson[ "logLevels" ]) {
             this->_logLevels.push_back(logLevel);

@@ -17,6 +17,8 @@ namespace Common {
     public:
         static std::shared_ptr<Config> getInstance();
 
+        unsigned port = 8080;
+
         std::string logFileTemplate = "";
         std::string logsFolder = "";
         std::string logExtension = "";

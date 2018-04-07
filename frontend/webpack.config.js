@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './assets/main.js',
+    entry: './assets/js/main.js',
     output: {
         path: path.resolve(__dirname, 'assets', 'js-minify'),
         filename: 'bundle-compile.js'

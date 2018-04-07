@@ -10,8 +10,6 @@
 #include "./Controllers/Logs/LogsController.h"
 #include "./Services/LogsReader.h"
 
-#define SERVER_PORT 8080
-
 int main(int argc, char **argv) {
 
     auto c = Common::Config::getInstance();
@@ -21,22 +19,23 @@ int main(int argc, char **argv) {
     auto logsLevelsController = Controllers::LogsLevels::LogsLevelsController();
 
     auto server = Server::Server();
-    server.fileHomePage("./assets/index.html");
 
-    server.homeOn({"/logs"});
+//    server.fileHomePage("../frontend/index.html");
 
-    server.addExtensionType("js", "application/javascript");
-    server.addExtensionType("html", "text/html");
-    server.addExtensionType("css", "text/css");
+//    server.homeOn({"/logs"});
 
-    server.staticRoute("/assets/", "./assets/");
+//    server.addExtensionType("js", "application/javascript");
+//    server.addExtensionType("html", "text/html");
+//    server.addExtensionType("css", "text/css");
+//
+//    server.staticRoute("/", "../frontend/");
 
     server.route("/v1/memory", memController.memoryDataAction());
     server.route("/v1/logs", logsController.getLogsFiles());
     server.route("/v1/logs/:file", logsController.getLogsMsgs());
     server.route("/v1/logs-levels", logsLevelsController.getLogLevels());
 
-    server.start(SERVER_PORT);
+    server.start(c->port);
 
     return 0;
 

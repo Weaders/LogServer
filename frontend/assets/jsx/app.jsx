@@ -4,6 +4,10 @@ import MainContent from './main-content'
 import MainContentLogs from './main-content-logs'
 import { BrowserRouter, Route } from 'react-router-dom';
 
+import LogsService from '../js/logs-service';
+
+let log = new LogsService();
+
 class App extends React.Component {
 
     constructor(props) {

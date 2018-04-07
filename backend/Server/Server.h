@@ -20,7 +20,7 @@ class Server {
 
 public:
     explicit Server();
-    void start(uint16_t port);
+    void start(unsigned port);
 
     void route(const std::string& path, std::shared_ptr<Action> action, const HTTP_METHOD& = HTTP_METHOD::GET);
     void staticRoute(const std::string& path, const std::string& folder);

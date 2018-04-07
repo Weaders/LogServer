@@ -1,4 +1,5 @@
 {
+  "port": 8080,
   "logsFolder": "<!-logs-folder->",
   "logExtension": ".log",
   "logFileTemplate": ":time\\.:level\\.log",

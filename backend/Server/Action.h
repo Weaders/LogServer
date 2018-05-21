@@ -1,20 +1,18 @@
 #pragma once
 
-#include <memory>
-#include "Response.h"
 #include "Request.h"
+#include "Response.h"
+#include <memory>
 
 namespace Server {
 
-    class Action {
+class Action {
 
-    public:
+public:
+    Action();
+    ~Action();
 
-        Action();
-        ~Action();
+    virtual std::shared_ptr<Response> run(const Request&) = 0;
+};
 
-        virtual std::shared_ptr<Response> run(const Request&) = 0;
-
-    };
-
-}
+} // namespace Server

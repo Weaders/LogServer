@@ -1,20 +1,19 @@
 #pragma once
 
-#include <memory>
 #include "../../Server/Action.h"
 #include "./GetLogsLevelsAction.h"
+#include <memory>
 
 namespace Controllers {
 
-    namespace LogsLevels {
+namespace LogsLevels {
 
-        class LogsLevelsController {
+    class LogsLevelsController {
 
-        public:
-            std::shared_ptr<Server::Action> getLogLevels();
+    public:
+        std::shared_ptr<Server::Action> getLogLevels();
+    };
 
-        };
+} // namespace LogsLevels
 
-    }
-
-}
+} // namespace Controllers

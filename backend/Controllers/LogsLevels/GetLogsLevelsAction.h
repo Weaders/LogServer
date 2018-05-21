@@ -5,14 +5,13 @@
 
 namespace Controllers {
 
-    namespace LogsLevels {
+namespace LogsLevels {
 
-        class GetLogsLevelsAction : public Server::Action {
+    class GetLogsLevelsAction : public Server::Action {
 
-            std::shared_ptr<Server::Response> run(const Server::Request&) override;
+        std::shared_ptr<Server::Response> run(const Server::Request&) override;
+    };
 
-        };
+} // namespace LogsLevels
 
-    }
-
-}
+} // namespace Controllers

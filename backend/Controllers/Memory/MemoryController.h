@@ -3,19 +3,17 @@
 #include "../../Server/Server.h"
 #include "./MemoryInfoCurrent.h"
 
-
 namespace Controllers {
 
-    namespace Memory {
+namespace Memory {
 
-        class MemoryController {
+    class MemoryController {
 
-        public:
-            MemoryController();
-            std::shared_ptr<MemoryInfoCurrent> memoryDataAction();
+    public:
+        MemoryController();
+        std::shared_ptr<MemoryInfoCurrent> memoryDataAction();
+    };
 
-        };
+} // namespace Memory
 
-    }
-
-}
+} // namespace Controllers

@@ -1,28 +1,26 @@
 #pragma once
 
 #include "./../../Server/Action.h"
-#include "./../../Server/Response.h"
 #include "./../../Server/Request.h"
-#include "./../../json/json.hpp"
+#include "./../../Server/Response.h"
 #include "./../../Services/LogsReader.h"
+#include "./../../json/json.hpp"
 
 namespace Controllers {
 
-    namespace Logs {
+namespace Logs {
 
-        class LogsFilesAction: public Server::Action {
+    class LogsFilesAction : public Server::Action {
 
-        public:
+    public:
+        LogsFilesAction(std::shared_ptr<Services::LogsReader> reader);
 
-            LogsFilesAction(std::shared_ptr<Services::LogsReader> reader);
+        std::shared_ptr<Server::Response> run(const Server::Request&) override;
 
-            std::shared_ptr<Server::Response> run(const Server::Request&) override;
+    protected:
+        std::shared_ptr<Services::LogsReader> reader;
+    };
 
-        protected:
-            std::shared_ptr<Services::LogsReader> reader;
+} // namespace Logs
 
-        };
-
-    }
-
-}
+} // namespace Controllers

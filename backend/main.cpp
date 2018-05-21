@@ -30,6 +30,8 @@ int main(int argc, char **argv) {
 //
 //    server.staticRoute("/", "../frontend/");
 
+    
+ 
     server.route("/v1/memory", memController.memoryDataAction());
     server.route("/v1/logs", logsController.getLogsFiles());
     server.route("/v1/logs/:file", logsController.getLogsMsgs());

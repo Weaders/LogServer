@@ -2,22 +2,17 @@
 
 namespace Controllers {
 
-    namespace Memory {
+namespace Memory {
 
-        MemoryController::MemoryController() {
-
-        }
-
-        std::shared_ptr<MemoryInfoCurrent> MemoryController::memoryDataAction() {
-
-            auto action = std::make_shared<MemoryInfoCurrent>();
-            return action;
-
-        }
-
+    MemoryController::MemoryController() {
     }
 
+    std::shared_ptr<MemoryInfoCurrent> MemoryController::memoryDataAction() {
 
-}
+        auto action = std::make_shared<MemoryInfoCurrent>();
+        return action;
+    }
 
+} // namespace Memory
 
+} // namespace Controllers

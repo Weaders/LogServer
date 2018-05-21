@@ -2,22 +2,21 @@
 
 namespace Controllers {
 
-    namespace Memory {
+namespace Memory {
 
-        std::shared_ptr<Server::Response> MemoryInfoCurrent::run(const Server::Request &req) {
+    std::shared_ptr<Server::Response> MemoryInfoCurrent::run(const Server::Request& req) {
 
-            auto response = std::make_shared<Server::Response>();
+        auto response = std::make_shared<Server::Response>();
 
-            Services::MemoryInfo memInfo;
+        Services::MemoryInfo memInfo;
 
-            nlohmann::json j = memInfo;
+        nlohmann::json j = memInfo;
 
-            response->jsonResponse(j.dump());
+        response->jsonResponse(j.dump());
 
-            return response;
-
-        }
-
+        return response;
     }
 
-}
+} // namespace Memory
+
+} // namespace Controllers

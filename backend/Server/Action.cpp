@@ -2,12 +2,10 @@
 
 namespace Server {
 
-    Action::~Action() {
-        
-    }
-
-    Action::Action() {
-
-    }
-
+Action::~Action() {
 }
+
+Action::Action() {
+}
+
+} // namespace Server

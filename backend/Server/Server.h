@@ -8,11 +8,11 @@
 
 #include "Action.h"
 #include "Route.h"
-#include "WebSocketConn.h"
-#include "WebSocketAction.h"
+#include "WebSocket/SocketAction.h"
+#include "WebSocket/SocketRoute.h"
+#include "boost/filesystem.hpp"
 #include <map>
 #include <string>
-#include "boost/filesystem.hpp"
 
 namespace Server {
 
@@ -24,7 +24,7 @@ public:
 
     void route(const std::string& path, std::shared_ptr<Action> action, const HTTP_METHOD& = HTTP_METHOD::GET);
     void staticRoute(const std::string& path, const std::string& folder);
-    void websocketRoute(const std::string&, WebSocketAction*);
+    void websocketRoute(const std::string&, std::shared_ptr<WebSocket::SocketAction>);
 
     void addExtensionType(const std::string&, const std::string&);
     bool staticRouteFileName(const std::string&, std::string&);
@@ -38,15 +38,15 @@ public:
 
     void sendResponse(evhttp_request*, std::shared_ptr<Response>);
 
-    static HTTP_METHOD convertEvCmd(const evhttp_cmd_type &);
+    static HTTP_METHOD convertEvCmd(const evhttp_cmd_type&);
 
-    bool isReturnHome(const std::string &path);
+    bool isReturnHome(const std::string& path);
 
 protected:
-
-    std::map<std::string, std::string> extensions;
-    std::vector<Route> routes;
-    std::map<std::string, std::string> staticRoutes;
+    std::map<std::string, std::string> _extensions;
+    std::vector<Route> _routes;
+    std::vector<WebSocket::SocketRoute> _socketRoutes;
+    std::map<std::string, std::string> _staticRoutes;
 
     std::string fileHomePagePath;
     std::vector<std::string> homeRoutes;

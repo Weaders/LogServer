@@ -1,26 +1,24 @@
 #pragma once
 
+#include "LogFile.h"
+#include "boost/filesystem.hpp"
 #include <string>
 #include <vector>
-#include "boost/filesystem.hpp"
-#include "LogFile.h"
 
 namespace fs = boost::filesystem;
 
 namespace Services {
 
-    class LogsReader {
+class LogsReader {
 
-    public:
-        LogsReader(const std::string& path, const std::string& ext);
+public:
+    LogsReader(const std::string& path, const std::string& ext);
 
-        std::vector<LogFile> getLogsFiles();
+    std::vector<LogFile> getLogsFiles();
 
-    protected:
-        std::string path;
-        std::string ext;
+protected:
+    std::string path;
+    std::string ext;
+};
 
-
-    };
-
-}
+} // namespace Services

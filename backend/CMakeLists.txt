@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.9)
 project(http_event)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(http_event
@@ -16,12 +18,6 @@ add_executable(http_event
         Server/Response.h
         Server/Route.cpp
         Server/Route.h
-        Server/WebSocketConn.cpp
-        Server/WebSocketConn.h
-        Server/WebSocketAction.cpp
-        Server/WebSocketAction.h
-        Server/WebSocketRoute.cpp
-        Server/WebSocketRoute.h
         Services/MemoryInfo.cpp
         Services/MemoryInfo.h
         Controllers/Memory/MemoryController.cpp
@@ -50,7 +46,25 @@ add_executable(http_event
         Controllers/LogsLevels/LogsLevelsController.cpp
         Controllers/LogsLevels/LogsLevelsController.h
         Controllers/LogsLevels/GetLogsLevelsAction.cpp
-        Controllers/LogsLevels/GetLogsLevelsAction.h)
+        Controllers/LogsLevels/GetLogsLevelsAction.h 
+        Common/Base64.h 
+        Server/WebSocket/SocketConnection.cpp 
+        Server/WebSocket/SocketConnection.h
+        Server/WebSocket/Frame.cpp 
+        Server/WebSocket/Frame.h
+        Server/WebSocket/FrameReader.h
+        Server/WebSocket/FrameReader.cpp
+        Server/WebSocket/FrameWriter.h
+        Server/WebSocket/FrameWriter.cpp
+        Server/WebSocket/FrameFactory.h
+        Server/WebSocket/FrameFactory.cpp
+        Server/WebSocket/SocketRoute.h
+        Server/WebSocket/SocketRoute.cpp
+        Server/WebSocket/SocketAction.cpp
+        Server/WebSocket/SocketAction.h
+        Controllers/Example/ExampleController.h
+        Controllers/Example/ExampleController.cpp
+)
 
 file(REMOVE ${CMAKE_BINARY_DIR}/config.json)
 configure_file(config.json config.json COPYONLY)

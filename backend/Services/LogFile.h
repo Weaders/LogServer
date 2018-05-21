@@ -1,38 +1,37 @@
 #pragma once
 
-#include <string>
 #include "../Common/Config.h"
-#include "boost/filesystem.hpp"
-#include "boost/algorithm/string.hpp"
-#include <iostream>
-#include <vector>
 #include "./../json/json.hpp"
+#include "boost/algorithm/string.hpp"
+#include "boost/filesystem.hpp"
+#include <iostream>
+#include <string>
+#include <vector>
 
 namespace Services {
 
-    namespace fs = boost::filesystem;
+namespace fs = boost::filesystem;
 
-    class LogFile {
+class LogFile {
 
-    public:
-        LogFile(const std::string&);
+public:
+    LogFile(const std::string&);
 
-        std::vector<nlohmann::json> getMsgs();
+    std::vector<nlohmann::json> getMsgs();
 
-        std::string path;
+    std::string path;
 
-        std::shared_ptr<Common::LogLevel> level = nullptr;
-        std::string time;
-        std::string fileName;
+    std::shared_ptr<Common::LogLevel> level = nullptr;
+    std::string time;
+    std::string fileName;
 
-        bool isValidLogFile = false;
+    bool isValidLogFile = false;
 
-    protected:
-        void processPath();
+protected:
+    void processPath();
+};
 
-    };
+void to_json(nlohmann::json& j, const LogFile&);
+void from_json(const nlohmann::json& j, LogFile&);
 
-    void to_json(nlohmann::json& j, const LogFile&);
-    void from_json(const nlohmann::json& j, LogFile&);
-
-}
+} // namespace Services

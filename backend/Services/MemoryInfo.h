@@ -1,24 +1,21 @@
 #pragma once
 
+#include "./../json/json.hpp"
 #include <cstdio>
 #include <sys/sysinfo.h>
-#include "./../json/json.hpp"
-
 
 namespace Services {
 
-    class MemoryInfo {
+class MemoryInfo {
 
-    public:
+public:
+    MemoryInfo();
 
-        MemoryInfo();
+    size_t allMemory;
+    size_t freeMemory;
+    size_t usageMemory;
+};
 
-        size_t allMemory;
-        size_t freeMemory;
-        size_t usageMemory;
-
-    };
-
-    void to_json(nlohmann::json& j, const MemoryInfo&);
-    void from_json(const nlohmann::json& j, MemoryInfo&);
-}
+void to_json(nlohmann::json& j, const MemoryInfo&);
+void from_json(const nlohmann::json& j, MemoryInfo&);
+} // namespace Services

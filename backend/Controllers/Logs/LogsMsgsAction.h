@@ -4,14 +4,13 @@
 
 namespace Controllers {
 
-    namespace Logs {
+namespace Logs {
 
-        class LogsMsgsAction: public Server::Action {
+    class LogsMsgsAction : public Server::Action {
 
-            std::shared_ptr<Server::Response> run(const Server::Request&) override;
+        std::shared_ptr<Server::Response> run(const Server::Request&) override;
+    };
 
-        };
+} // namespace Logs
 
-    }
-
-}
+} // namespace Controllers

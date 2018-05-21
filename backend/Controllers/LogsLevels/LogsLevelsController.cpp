@@ -2,16 +2,15 @@
 
 namespace Controllers {
 
-    namespace LogsLevels {
+namespace LogsLevels {
 
-        std::shared_ptr<Server::Action> LogsLevelsController::getLogLevels() {
+    std::shared_ptr<Server::Action> LogsLevelsController::getLogLevels() {
 
-            auto action = std::make_shared<GetLogsLevelsAction>();
+        auto action = std::make_shared<GetLogsLevelsAction>();
 
-            return action;
-
-        }
-
+        return action;
     }
 
-}
+} // namespace LogsLevels
+
+} // namespace Controllers

@@ -1,22 +1,20 @@
 #pragma once
 
 #include "./../../Server/WebSocket/SocketAction.h"
-#include "./ExmapleEchoAction.cpp"
+#include "./ExampleEchoAction.h"
 #include <memory>
 
 namespace Controllers {
 namespace Example {
 
-    typedef SocAction Server::WebSocket::SocketAction;
-
     class ExampleController {
     public:
         ExampleController();
 
-        SocAction getEchoAction();
+        std::shared_ptr<Server::WebSocket::SocketAction> getEchoAction();
 
     protected:
-        std::shared_ptr<SocAction> _action;
+        std::shared_ptr<Server::WebSocket::SocketAction> _action;
     };
 
 } // namespace Example

@@ -46,8 +46,8 @@ add_executable(http_event
         Controllers/LogsLevels/LogsLevelsController.cpp
         Controllers/LogsLevels/LogsLevelsController.h
         Controllers/LogsLevels/GetLogsLevelsAction.cpp
-        Controllers/LogsLevels/GetLogsLevelsAction.h 
-        Common/Base64.h 
+        Controllers/LogsLevels/GetLogsLevelsAction.h
+        ThirdParty/Base64.h
         Server/WebSocket/SocketConnection.cpp 
         Server/WebSocket/SocketConnection.h
         Server/WebSocket/Frame.cpp 
@@ -64,7 +64,8 @@ add_executable(http_event
         Server/WebSocket/SocketAction.h
         Controllers/Example/ExampleController.h
         Controllers/Example/ExampleController.cpp
-)
+        Controllers/Example/ExampleEchoAction.cpp
+        Controllers/Example/ExampleEchoAction.h)
 
 file(REMOVE ${CMAKE_BINARY_DIR}/config.json)
 configure_file(config.json config.json COPYONLY)

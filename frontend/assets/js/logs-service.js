@@ -47,8 +47,6 @@ class LogsService extends ServiceListener {
       return !this._isExistsFile(f);
     });
 
-    console.log(newFiles);
-
     if (newFiles.length === 0) {
       return false;
     }
@@ -56,8 +54,6 @@ class LogsService extends ServiceListener {
     files = files.map((f) => {
       return new LogFile(f)
     });
-
-    console.log(files);
 
     this.logFiles = files;
 
@@ -111,7 +107,7 @@ class LogsService extends ServiceListener {
    */
   _getLogsFilesInit() {
 
-    // setInterval(() => {
+    setInterval(() => {
 
       logsReq('logs')
         .then((res) => {
@@ -128,7 +124,7 @@ class LogsService extends ServiceListener {
 
         });
 
-    // }, 20000);
+    }, 20000);
 
   }
 

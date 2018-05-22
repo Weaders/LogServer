@@ -7,6 +7,7 @@ namespace WebSocket {
 
     class FrameFactory {
     public:
+        static Frame textFrame(const std::string&);
         static Frame emptyFrame();
         static Frame closeFrame();
         static Frame pongFrame();

@@ -4,10 +4,20 @@
 namespace Server {
 namespace WebSocket {
 
-    SocketConnection::SocketConnection(evhttp_connection* con) {
+    SocketConnection::~SocketConnection() {
+        evhttp_connection_free(this->_conn);
+    }
+
+    SocketConnection::SocketConnection(evhttp_connection* con, std::shared_ptr<SocketAction> action) {
 
         this->_conn = con;
         this->_reader = std::make_shared<FrameReader>();
+        this->_action = std::move(action);
+
+    }
+
+    std::shared_ptr<SocketAction> SocketConnection::getAction() {
+        return this->_action;
     }
 
     evhttp_connection* SocketConnection::getConnection() {
@@ -19,7 +29,7 @@ namespace WebSocket {
     }
 
     void SocketConnection::close() {
-        // evhttp_connection_free(this->_conn);
+        this->state = CONNECTION_STATE ::CLOSED;
     }
 
 } // namespace WebSocket

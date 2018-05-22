@@ -4,12 +4,11 @@
 
 namespace Server {
 
-Route::Route(const std::string& str, std::shared_ptr<Action> action, const HTTP_METHOD& method)
-    : _method(method) {
+Route::Route(const std::string& str, const HTTP_METHOD& method) : _method(method) {
 
     this->_sourceStr = str;
-    this->action = std::move(action);
     this->_setRegex();
+
 }
 
 void Route::_setRegex() {
@@ -41,17 +40,19 @@ RouteParams Route::exec(const std::string& path) {
     return params;
 }
 
-bool Route::check(std::string path, const HTTP_METHOD& method) {
+bool Route::check(const std::string& path, const HTTP_METHOD& method) {
 
     if (method != this->_method) {
         return false;
     }
 
+    std::string pathToCheck = path;
+
     if (path.back() == '/') {
-        path = path.substr(0, path.size() - 1);
+        pathToCheck = path.substr(0, path.size() - 1);
     }
 
-    return std::regex_match(path, this->_regex);
+    return std::regex_match(pathToCheck, this->_regex);
 }
 
 } // namespace Server

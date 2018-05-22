@@ -1,7 +1,7 @@
 class Config {
 
   constructor() {
-    this.serverUrl = 'http://172.104.157.26:8079';
+    this.serverUrl = 'http://127.0.0.1:8079';
   }
 
 }

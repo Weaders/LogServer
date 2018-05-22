@@ -1,13 +1,10 @@
-#include "./../../Server/WebSocket/SocketAction.h"
+#include "ExampleEchoAction.h"
 
 namespace Controllers {
     namespace Example {
 
-        class ExampleEchoAction : public Server::WebSocket::SocketAction {
-            public:
-                ExampleEchoAction();
-
-            
+        std::string ExampleEchoAction::run(const std::string &msg) {
+            return "test";
         }
 
     }

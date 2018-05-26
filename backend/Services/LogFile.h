@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Common/Config.h"
-#include "./../json/json.hpp"
+#include "../ThirdParty/json.hpp"
 #include "boost/algorithm/string.hpp"
 #include "boost/filesystem.hpp"
 #include <iostream>

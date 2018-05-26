@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../Server/Action.h"
-#include "../../json/json.hpp"
+#include "../../ThirdParty/json.hpp"
 
 namespace Controllers {
 

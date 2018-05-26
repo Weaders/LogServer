@@ -7,6 +7,7 @@ folders=()
 folders[0]="Controllers/"
 folders[1]="Server/"
 folders[2]="Services/"
+folders[3]="Common/"
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 

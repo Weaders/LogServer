@@ -2,6 +2,12 @@ import config from '../config'
 
 const SERVER_API_URL = config.serverUrl + '/v1';
 
+/**
+ * Logs request
+ * @param {strings} url
+ * @param {{}} opts
+ * @return {Promise<Response>}
+ */
 function logsReq(url, opts = {}) {
 
   if (!opts) {
@@ -16,4 +22,13 @@ function logsReq(url, opts = {}) {
 
 }
 
-export {logsReq};
+/**
+ * Init websocket
+ * @param {string} url
+ * @return {WebSocket}
+ */
+function webSocketInit(url) {
+  return new WebSocket(SERVER_API_URL + `/${url}`);
+}
+
+export {logsReq, webSocketInit};

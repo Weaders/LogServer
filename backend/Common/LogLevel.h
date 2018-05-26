@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "./../json/json.hpp"
+#include "../ThirdParty/json.hpp"
 
 namespace Common {
 

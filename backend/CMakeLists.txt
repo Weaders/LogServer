@@ -22,7 +22,7 @@ add_executable(http_event
         Services/MemoryInfo.h
         Controllers/Memory/MemoryController.cpp
         Controllers/Memory/MemoryController.h
-        json/json.hpp
+        ThirdParty/json.hpp
         Controllers/Memory/MemoryInfoCurrent.cpp
         Controllers/Memory/MemoryInfoCurrent.h
         Services/MemoryInfoData.cpp
@@ -62,10 +62,7 @@ add_executable(http_event
         Server/WebSocket/SocketRoute.cpp
         Server/WebSocket/SocketAction.cpp
         Server/WebSocket/SocketAction.h
-        Controllers/Example/ExampleController.h
-        Controllers/Example/ExampleController.cpp
-        Controllers/Example/ExampleEchoAction.cpp
-        Controllers/Example/ExampleEchoAction.h)
+        Server/WebSocket/SocketMsg.cpp Server/WebSocket/SocketMsg.h Server/WebSocket/SocketUserData.cpp Server/WebSocket/SocketUserData.h Controllers/Logs/SocketLogsFilesAction.cpp Controllers/Logs/SocketLogsFilesAction.h Server/WebSocket/SocketActionGenerator.cpp Server/WebSocket/SocketActionGenerator.h)
 
 file(REMOVE ${CMAKE_BINARY_DIR}/config.json)
 configure_file(config.json config.json COPYONLY)

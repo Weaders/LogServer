@@ -1,4 +1,4 @@
-import {logsReq} from './common';
+import {logsReq, webSocketInit} from './common';
 import LogFile from './log-file'
 import LogFilesNotify from './log-files-notify';
 import ServiceListener from './service-listener';
@@ -10,6 +10,12 @@ class LogsService extends ServiceListener {
     super();
 
     this._getLogsFilesInit();
+
+    /**
+     * Web socket for work with logs files.
+     * @type {WebSocket|null}
+     */
+    this.logFilesWs = null;
 
     /**
      * Array of log files
@@ -107,24 +113,37 @@ class LogsService extends ServiceListener {
    */
   _getLogsFilesInit() {
 
-    setInterval(() => {
+    this.logFilesWs = webSocketInit('logs');
+    this.logFilesWs.onmessage = this._getLogsMsg.bind(this);
 
-      logsReq('logs')
-        .then((res) => {
-          return res.json();
-        })
-        .then((files) => {
-          return this._updateFiles(files);
-        })
-        .then((isNotify) => {
+    this.logFilesWs.send('get-files');
 
-          if (isNotify) {
-            this._notifyLogFiles();
-          }
+    console.log('test');
 
-        });
+    // setInterval(() => {
+    //
+    //   logsReq('logs')
+    //     .then((res) => {
+    //       return res.json();
+    //     })
+    //     .then((files) => {
+    //       return this._updateFiles(files);
+    //     })
+    //     .then((isNotify) => {
+    //
+    //       if (isNotify) {
+    //         this._notifyLogFiles();
+    //       }
+    //
+    //     });
+    //
+    // }, 20000);
 
-    }, 20000);
+  }
+
+  _getLogsMsg(msg) {
+
+    console.log(msg);
 
   }
 

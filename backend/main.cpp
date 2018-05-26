@@ -9,13 +9,11 @@
 #include "./Controllers/LogsLevels/LogsLevelsController.h"
 #include "./Controllers/Logs/LogsController.h"
 #include "./Services/LogsReader.h"
-#include "./Controllers/Example/ExampleController.h"
 
 int main(int argc, char **argv) {
 
     auto c = Common::Config::getInstance();
 
-    auto exampleController = Controllers::Example::ExampleController();
     auto memController = Controllers::Memory::MemoryController();
     auto logsController = Controllers::Logs::LogsController(c->logsFolder, c->logExtension);
     auto logsLevelsController = Controllers::LogsLevels::LogsLevelsController();
@@ -32,7 +30,11 @@ int main(int argc, char **argv) {
 //
 //    server.staticRoute("/", "../frontend/");
 
-    server.websocketRoute("/v1/echo", exampleController.getEchoAction());
+//    server.websocketRoute("/v1/echo", exampleController.getEchoAction());
+    server.webSocketRoute<Controllers::Logs::SocketLogsFilesAction>("/v1/logs");
+
+
+//    Server::WebSocket::SocketActionGenerator<Controllers::Logs::SocketLogsFilesAction> a();
 
     server.route("/v1/memory", memController.memoryDataAction());
     server.route("/v1/logs", logsController.getLogsFiles());

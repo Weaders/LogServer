@@ -15,7 +15,7 @@ namespace WebSocket {
         return frame;
     }
 
-    Frame FrameFactory::textFrame(const std::string &msg) {
+    Frame FrameFactory::textFrame(const std::string& msg) {
 
         auto frame = Frame();
 
@@ -29,7 +29,7 @@ namespace WebSocket {
             frame.baseLength = frame.payload.size();
             frame.extendedLength = 0;
 
-        } else if (frame.payload.size() <= 65536){
+        } else if (frame.payload.size() <= 65536) {
 
             frame.baseLength = 126;
             frame.extendedLength = frame.payload.size();
@@ -38,11 +38,9 @@ namespace WebSocket {
 
             frame.baseLength = 127;
             frame.extendedLength = frame.payload.size();
-
         }
 
         return frame;
-
     }
 
 } // namespace WebSocket

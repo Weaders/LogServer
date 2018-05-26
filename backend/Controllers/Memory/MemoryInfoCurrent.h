@@ -4,7 +4,7 @@
 #include "./../../Server/Request.h"
 #include "./../../Server/Response.h"
 #include "./../../Services/MemoryInfo.h"
-#include "./../../json/json.hpp"
+#include "../../ThirdParty/json.hpp"
 
 namespace Controllers {
 

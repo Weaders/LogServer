@@ -6,7 +6,7 @@
 #include <regex>
 
 
-#include "./../json/json.hpp"
+#include "../ThirdParty/json.hpp"
 #include "LogLevel.h"
 #include "StrTemplate.h"
 

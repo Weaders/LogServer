@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./../json/json.hpp"
+#include "../ThirdParty/json.hpp"
 #include <cstdio>
 #include <sys/sysinfo.h>
 

@@ -33,6 +33,9 @@ class MainContentLogs extends React.Component {
     this._logService.subscribe('main-content-logs', this.receiveNotify.bind(this), {getCurrent: true});
   }
 
+  /**
+   * Component has benn unmounted
+   */
   componentWillUnmount() {
     this._logService.unsubscribe('main-content-logs');
   }

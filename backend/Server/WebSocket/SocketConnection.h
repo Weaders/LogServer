@@ -1,5 +1,7 @@
+#pragma once
+
 #include "FrameReader.h"
-#include "SocketAction.h"
+#include "FrameWriter.h"
 #include <event2/http.h>
 #include <memory>
 
@@ -15,22 +17,29 @@ namespace WebSocket {
             OPENED
         };
 
+        SocketConnection(evhttp_connection*);
+
         ~SocketConnection();
-        SocketConnection(evhttp_connection*, std::shared_ptr<SocketAction>);
 
         CONNECTION_STATE state = CONNECTION_STATE::OPENED;
 
         evhttp_connection* getConnection();
-        std::shared_ptr<FrameReader> getFrameReader();
 
-        std::shared_ptr<SocketAction> getAction();
+        void sendMsg(const std::string& msg);
+
+        std::shared_ptr<FrameReader> getFrameReader();
+        std::shared_ptr<FrameWriter> getFrameWriter();
+
+        evutil_socket_t getFd();
 
         void close();
 
     protected:
+        void _writeToBuffer(const Frame&);
+
         evhttp_connection* _conn = nullptr;
         std::shared_ptr<FrameReader> _reader = nullptr;
-        std::shared_ptr<SocketAction> _action = nullptr;
+        std::shared_ptr<FrameWriter> _writer = nullptr;
     };
 
 } // namespace WebSocket

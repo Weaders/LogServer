@@ -4,11 +4,11 @@
 
 namespace Server {
 
-Route::Route(const std::string& str, const HTTP_METHOD& method) : _method(method) {
+Route::Route(const std::string& str, const HTTP_METHOD& method)
+    : _method(method) {
 
     this->_sourceStr = str;
     this->_setRegex();
-
 }
 
 void Route::_setRegex() {
